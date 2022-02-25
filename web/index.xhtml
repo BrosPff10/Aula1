@@ -9,7 +9,7 @@
         <title>Dipi Web</title>
     </h:head>
     <h:body>
-        <h:form>
+        <h:form id="form">
             <p:growl id="growl" showDetail="true" />
             <p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
             <h1>Formulário</h1>
@@ -38,30 +38,39 @@
                         <h:outputText value="3 opções" style="font-weight:bold;"/>
                     </f:facet>
                 </p:selectOneMenu>
-                </p:panelGrid>
+            </p:panelGrid>
 
-                <p:commandButton value="Adicionar" action="#{controller.adicionar()}" update="tabela,growl"/>
+            <p:commandButton value="Adicionar" action="#{controller.adicionar()}" update="tabela, growl"/>
+
+            <p:commandButton value="Exibir" action="#{controller.exibir()}"/>
+
+            <p:dataTable id="tabela" var="pessoa" value="#{controller.pessoas}" rowKey="#{pessoa.status}"
+                         selection="#{controller.pessoaSelecionada}" selectionMode="single">
+
+                <p:column headerText="Nome">
+                    <h:outputText value="#{pessoa.nome}" />
+                </p:column>
+
+                <p:column headerText="Nascimento">
+                    <h:outputText value="#{pessoa.dataNascimento}" />
+                </p:column>
+
+                <p:column headerText="Status">
+                    <h:outputText value="#{pessoa.status}" />
+                </p:column>
+
+                <p:column headerText="Unidade Federativa">
+                    <h:outputText value="#{pessoa.uf}" />     
+                </p:column>
                 
-                <p:commandButton value="Exibir" action="#{controller.exibir()}"/>
-                
-                <p:dataTable id="tabela" var="pessoa" value="#{controller.pessoas}">
-
-                    <p:column headerText="Nome">
-                        <h:outputText value="#{pessoa.nome}" />
-                    </p:column>
-
-                    <p:column headerText="Nascimento">
-                        <h:outputText value="#{pessoa.dataNascimento}" />
-                    </p:column>
-
-                    <p:column headerText="Status">
-                        <h:outputText value="#{pessoa.status}" />
-                    </p:column>
-
-                    <p:column headerText="Unidade Federativa">
-                        <h:outputText value="#{pessoa.uf}" />
-                    </p:column>
-                </p:dataTable>
+                <f:facet name='footer'>
+                        <p:commandButton value="Excluir" action="#{controller.excluir()}" update="tabela, form:growl"/>
+                    </f:facet>              
+            </p:dataTable>
+            <p:contextMenu for="tabela">
+            <p:menuitem value="Delete" update="tabela, form:growl" icon="pi pi-times"
+                        action="#{controller.excluir()}"/>
+        </p:contextMenu>
         </h:form>
     </h:body>
 </html>
