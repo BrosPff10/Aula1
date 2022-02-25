@@ -24,21 +24,33 @@ public class Controller implements Serializable {
 
     private Pessoa pessoa;
     private List<Pessoa> pessoas = new ArrayList<>();
+    private Pessoa pessoaSelecionada;
 
     public Controller() {
         this.pessoa = new Pessoa();
     }
 
     public void adicionar() {
-        this.pessoas.add(pessoa);
-        this.pessoa = new Pessoa();
-        addMessage(FacesMessage.SEVERITY_INFO, "OLHA AQUI !", "Pião rodou Maria !");
+        if (pessoa.getNome().equals("")) {
+            addMessage(FacesMessage.SEVERITY_WARN, "CUIDADO !", "Coloque pelo menos o nome! ");
+        } else {
+            this.pessoas.add(pessoa);
+            this.pessoa = new Pessoa();
+            addMessage(FacesMessage.SEVERITY_INFO, "REGISTRADA !", "Pessoa registrada com sucesso");
+        }
+
     }
 
     public void exibir() {
         for (Pessoa p : pessoas) {
             System.out.println(p.getNome());
         }
+    }
+
+    public void excluir() {
+        pessoas.remove(pessoaSelecionada);
+        pessoaSelecionada = null;
+        addMessage(FacesMessage.SEVERITY_WARN, "DELETADA !", "Pessoa removida com seuceso");
     }
 
     public void addMessage(FacesMessage.Severity severity, String summary, String detail) {
@@ -61,4 +73,13 @@ public class Controller implements Serializable {
     public void setPessoas(List<Pessoa> pessoas) {
         this.pessoas = pessoas;
     }
+
+    public Pessoa getPessoaSelecionada() {
+        return pessoaSelecionada;
+    }
+
+    public void setPessoaSelecionada(Pessoa pessoaSelecionada) {
+        this.pessoaSelecionada = pessoaSelecionada;
+    }
+
 }
