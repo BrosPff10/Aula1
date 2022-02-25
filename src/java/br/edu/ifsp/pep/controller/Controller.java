@@ -14,10 +14,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-/**
- *
- * @author Aluno
- */
 @Named
 @ViewScoped
 public class Controller implements Serializable {
