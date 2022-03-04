@@ -9,6 +9,7 @@
         <title>Dipi Web</title>
     </h:head>
     <h:body>
+        
         <h:form id="form">
             <p:growl id="growl" showDetail="true" />
             <p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
@@ -19,16 +20,16 @@
                          contentStyleClass="p-align-baseline ui-fluid">
 
                 <p:outputLabel for='nome' value='Escreva seu nome:'/>
-                <p:inputText id='nome' value="#{controller.pessoa.nome}"/>
+                <p:inputText id='nome' value="#{controller.pessoa.nome}" required="true" requiredMessage ="Escreva seu nome !"/>
 
                 <p:outputLabel for='date' value='Escreva sua data de aniversário:'/>
-                <p:datePicker id='date' value="#{controller.pessoa.dataNascimento}" showIcon="true"/>
+                <p:datePicker id='date' value="#{controller.pessoa.dataNascimento}" showIcon="true" required="true" requiredMessage="Escreva a data do seu aniversário !"/>
 
                 <p:outputLabel for='status' value='Status'/>
-                <p:selectBooleanButton id='status' value='#{controller.pessoa.status}' onLabel="Yes" offLabel="No" onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" />
+                <p:selectBooleanButton id='status' value='#{controller.pessoa.status}' onLabel="Verdadeiro" offLabel="Falso" onIcon="pi pi-check" offIcon="pi pi-times"/>
 
                 <p:outputLabel for="@next" value="Unidade Federativa"/>
-                <p:selectOneMenu id="option" value="#{controller.pessoa.uf}">
+                <p:selectOneMenu id="option" value="#{controller.pessoa.uf}" required="true" requiredMessage="Escolha seu estado !">
                     <f:selectItem itemLabel="Selecione um estado" itemValue=""/>
                     <f:selectItem itemLabel="SP - São Paulo" itemValue="SP"/>
                     <f:selectItem itemLabel="RJ - Rio de Janeiro" itemValue="RJ"/>
@@ -64,7 +65,7 @@
                 </p:column>
                 
                 <f:facet name='footer'>
-                        <p:commandButton value="Excluir" action="#{controller.excluir()}" update="tabela, form:growl"/>
+                    <p:commandButton value="Excluir" action="#{controller.excluir()}" update="tabela, form:growl" immediate="true"/>
                     </f:facet>              
             </p:dataTable>
             <p:contextMenu for="tabela">
