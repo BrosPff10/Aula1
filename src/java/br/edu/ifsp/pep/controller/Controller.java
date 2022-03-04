@@ -31,14 +31,10 @@ public class Controller implements Serializable {
     }
 
     public void adicionar() {
-        if (pessoa.getNome().equals("")) {
-            addMessage(FacesMessage.SEVERITY_WARN, "CUIDADO !", "Coloque pelo menos o nome! ");
-        } else {
-            this.pessoas.add(pessoa);
-            this.pessoa = new Pessoa();
-            addMessage(FacesMessage.SEVERITY_INFO, "REGISTRADA !", "Pessoa registrada com sucesso");
-        }
 
+        this.pessoas.add(pessoa);
+        this.pessoa = new Pessoa();
+        addMessage(FacesMessage.SEVERITY_INFO, "REGISTRADA !", "Pessoa registrada com sucesso");
     }
 
     public void exibir() {
@@ -48,9 +44,13 @@ public class Controller implements Serializable {
     }
 
     public void excluir() {
-        pessoas.remove(pessoaSelecionada);
-        pessoaSelecionada = null;
-        addMessage(FacesMessage.SEVERITY_WARN, "DELETADA !", "Pessoa removida com seuceso");
+        if (pessoaSelecionada != null) {
+            pessoas.remove(pessoaSelecionada);
+            pessoaSelecionada = null;
+            addMessage(FacesMessage.SEVERITY_INFO, "DELETADA !", "Pessoa removida com seuceso");
+        } else {
+            addMessage(FacesMessage.SEVERITY_WARN, "OPS !", "Selecione uma pessoa ");
+        }
     }
 
     public void addMessage(FacesMessage.Severity severity, String summary, String detail) {
